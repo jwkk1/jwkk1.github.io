@@ -1,10 +1,8 @@
 import { graphql, PageProps } from 'gatsby'
 import Category from '../components/main/Category'
-import Introduction from '../components/main/introduction'
 import { useState } from 'react'
-import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
-import PostItem from '../components/main/PostItem'
 import PostList from '../components/main/PostList'
+import Introduction from '../components/main/Introduction'
 
 export default function Index({
   data: {
