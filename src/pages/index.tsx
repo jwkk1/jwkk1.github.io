@@ -31,8 +31,6 @@ export default function Index({
       selectedCategory === 'All' || category?.includes(selectedCategory),
   )
 
-  console.log(nodes)
-
   const handleSelect = (category: string) => {
     setSelectedCategory(category)
   }
