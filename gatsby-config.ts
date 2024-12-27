@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+const SITE_URL = 'https://jwkk1.github.io'
+
 const config: GatsbyConfig = {
   siteMetadata: {
     title: `works-tech-blog`,
@@ -34,6 +36,13 @@ const config: GatsbyConfig = {
         path: './src/images/',
       },
       __key: 'images',
+    },
+    {
+      resolve: 'gatsby-plugin-canonical-urls',
+      options: {
+        siteUrl: SITE_URL,
+        stripQueryString: true,
+      },
     },
   ],
 }
