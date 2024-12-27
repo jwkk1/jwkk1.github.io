@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 import useRenderRichText from '../../hooks/useRenderRichText'
+import { useEffect } from 'react'
+import Prism from 'prismjs'
+import 'prismjs/components/prism-typescript'
 
 type PostBodyProps = {
   content: Queries.ContentfulPostContent
@@ -27,6 +30,8 @@ const Content = styled.div`
 
 export default function PostBody({ content }: PostBodyProps) {
   const richText = useRenderRichText(content)
+
+  useEffect(Prism.highlightAll, [])
 
   return (
     <Wrapper>

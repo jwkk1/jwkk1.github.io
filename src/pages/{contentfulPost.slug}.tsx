@@ -18,9 +18,9 @@ export default function Post({
           contentfulPost?.thumbnail?.gatsbyImageData as IGatsbyImageData
         }
       />
-      {/* <PostBody
+      <PostBody
         content={contentfulPost?.content as Queries.ContentfulPostContent}
-      /> */}
+      />
     </>
   )
 }
