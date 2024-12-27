@@ -15,7 +15,6 @@ export default function Index({
 
   const categories = nodes.reduce<Record<string, number>>(
     (categories, post) => {
-      console.log('reduce', categories, post)
       post.category
         ?.filter((category): category is string => !!category)
         .forEach(
