@@ -3,7 +3,8 @@ import useRenderRichText from '../../hooks/useRenderRichText'
 import { useEffect } from 'react'
 import Prism from 'prismjs'
 import 'prismjs/components/prism-typescript'
-
+import 'prismjs/components/prism-python'
+import TableOfContents from './TableOfContents'
 type PostBodyProps = {
   content: Queries.ContentfulPostContent
 }
@@ -39,6 +40,7 @@ export default function PostBody({ content }: PostBodyProps) {
         <div id="content">{richText}</div>
         {/* 댓글 컴포넌트가 들어갈 자리 */}
       </Content>
+      <TableOfContents content={content} />
       {/* 플로팅 목차 컴포넌트가 들어갈 자리 */}
     </Wrapper>
   )
