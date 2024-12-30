@@ -8,6 +8,7 @@ import PostProfile from '../components/post/PostProfile'
 export default function Post({
   data: { contentfulPost },
 }: PageProps<Queries.PostPageQuery>) {
+  console.log(contentfulPost)
   return (
     <>
       <PostHead
@@ -21,7 +22,15 @@ export default function Post({
       <PostBody
         content={contentfulPost?.content as Queries.ContentfulPostContent}
       />
-      <PostProfile />
+      <PostProfile
+        name={contentfulPost?.author?.name as string}
+        role={contentfulPost?.author?.role as string}
+        description={contentfulPost?.author?.description?.description as string}
+        avatar={
+          contentfulPost?.author?.avatar?.gatsbyImageData as IGatsbyImageData
+        }
+        category={contentfulPost?.category as string[]}
+      />
     </>
   )
 }
@@ -68,6 +77,9 @@ export const query = graphql`
       author {
         name
         role
+        description {
+          description
+        }
         avatar {
           gatsbyImageData
         }
