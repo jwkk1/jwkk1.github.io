@@ -38,9 +38,9 @@ const Menu = styled.div`
 export default function Header() {
   return (
     <Wrapper>
-      <Title to="/">Blog Title</Title>
+      <Title to="/">WorksCombine Tech Blog</Title>
 
-      <Menu>
+      {/* <Menu>
         <a href="#" target="_blank">
           <AiFillGithub />
         </a>
@@ -50,7 +50,7 @@ export default function Header() {
         <a href="#" target="_blank">
           <AiFillLinkedin />
         </a>
-      </Menu>
+      </Menu> */}
     </Wrapper>
   )
 }

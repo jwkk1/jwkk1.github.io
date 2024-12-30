@@ -117,7 +117,11 @@ export default function PostHead({
             <div key={item}>#{item}</div>
           ))}
         </Category>
-        <div>{date}</div>
+
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <div>10 min read</div>
+          {date}
+        </div>
       </Information>
 
       <Thumbnail image={thumbnail} alt={title} />
