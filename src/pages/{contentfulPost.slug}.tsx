@@ -20,7 +20,7 @@ export default function Post({
         }
       />
       <PostBody
-        content={contentfulPost?.content as Queries.ContentfulPostContent}
+        content={contentfulPost?.content?.content as string} // contents 필드 사용
       />
       <PostProfile
         name={contentfulPost?.author?.name as string}
@@ -63,16 +63,7 @@ export const query = graphql`
         description
       }
       content {
-        raw
-        references {
-          ... on ContentfulAsset {
-            contentful_id
-            title
-            description
-            gatsbyImageData(width: 774)
-            __typename
-          }
-        }
+        content
       }
       author {
         name

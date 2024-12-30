@@ -1,64 +1,100 @@
 import { useState, useMemo, useEffect } from 'react'
-import { HEADERS } from './useRenderRichText'
 
-type ContentType = {
-  content: {
-    content: {
-      data: unknown
-      marks: unknown
-      nodeType: string
-      value: string
-    }[]
-    nodeType: string
-  }[]
-  nodeType: string
+type TocItem = {
+  id: string
+  title: string
+  depth: number
 }
 
-export default function useTableOfContents(rawContent: string) {
+export default function useTableOfContents(markdownContent: string) {
   const [activeId, setActiveId] = useState<string | null>(null)
 
   const toc = useMemo(() => {
-    const { content } = JSON.parse(rawContent) as ContentType
-    const headers = content.filter(item =>
-      HEADERS.find(header => header === item.nodeType),
-    )
-    const minDepth = Math.min(
-      ...headers.map(({ nodeType }) =>
-        parseInt(nodeType.charAt(nodeType.length - 1)),
-      ),
-    )
+    // 코드 블록을 제외한 헤더만 찾기
+    const lines = markdownContent.split('\n')
+    const headers: TocItem[] = []
+    let isInCodeBlock = false
 
-    return headers.map(({ nodeType, content }) => {
-      const title = content[0].value
-      const id = `${title.replaceAll(' ', '-')}_`
-      const depth = parseInt(nodeType.charAt(nodeType.length - 1)) - minDepth
+    lines.forEach(line => {
+      // 코드 블록 시작/끝 체크
+      if (line.trim().startsWith('```')) {
+        isInCodeBlock = !isInCodeBlock
+        return
+      }
 
-      return { id, title, depth }
+      // 코드 블록 내부면 무시
+      if (isInCodeBlock) return
+
+      // 헤더 매칭
+      const headerMatch = line.match(/^(#{1,3})\s+(.+)$/)
+      if (headerMatch) {
+        const depth = headerMatch[1].length - 1
+        const title = headerMatch[2].trim()
+        const id = `${title.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-')}_`
+        headers.push({ id, title, depth })
+      }
     })
-  }, [rawContent])
+
+    if (headers.length > 0) {
+      const minDepth = Math.min(...headers.map(h => h.depth))
+      return headers.map(h => ({
+        ...h,
+        depth: h.depth - minDepth,
+      }))
+    }
+
+    return headers
+  }, [markdownContent])
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        console.log(entries[0].target.id)
-        setActiveId(prevId => {
-          // 스크롤을 아래로 내리는 경우
-          if (entries[0].boundingClientRect.top < 0) return entries[0].target.id
-          // 스크롤을 위로 올리는 경우
-          else {
-            const index = toc.findIndex(({ id }) => id === prevId)
-            return index > 0 ? toc[index - 1].id : null
-          }
+    const callback: IntersectionObserverCallback = entries => {
+      const visibleEntries = entries.filter(
+        entry => entry.isIntersecting && entry.intersectionRatio > 0,
+      )
+
+      if (visibleEntries.length > 0) {
+        const targetEntry = visibleEntries.reduce((acc, cur) => {
+          const accTop = Math.abs(acc.boundingClientRect.top)
+          const curTop = Math.abs(cur.boundingClientRect.top)
+          return accTop < curTop ? acc : cur
         })
-      },
-      { rootMargin: '0% 0px -100% 0px' },
+
+        setActiveId(targetEntry.target.id)
+      }
+    }
+
+    const observer = new IntersectionObserver(callback, {
+      rootMargin: '-10% 0px -20% 0px',
+      threshold: [0, 0.5, 1],
+    })
+
+    const headerElements = document.querySelectorAll(
+      '#content h1, #content h2, #content h3',
     )
+    headerElements.forEach(element => observer.observe(element))
 
-    document
-      .querySelectorAll('#content > h1, h2, h3')
-      .forEach(element => observer.observe(element))
+    // 스크롤 이벤트 핸들러
+    const handleScroll = () => {
+      const headerElements = Array.from(
+        document.querySelectorAll('#content h1, #content h2, #content h3'),
+      )
 
-    return () => observer.disconnect()
+      const visibleHeader = headerElements.find(element => {
+        const rect = element.getBoundingClientRect()
+        return rect.top >= 0 && rect.top <= window.innerHeight * 0.3
+      })
+
+      if (visibleHeader) {
+        setActiveId(visibleHeader.id)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [toc])
 
   return { toc, activeId }

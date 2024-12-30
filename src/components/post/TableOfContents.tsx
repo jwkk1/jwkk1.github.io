@@ -3,7 +3,12 @@ import { GatsbyLinkProps, Link } from 'gatsby'
 import useTableOfContents from '../../hooks/useTableOfContents'
 
 type TableOfContentsProps = {
-  content: Queries.ContentfulPostContent
+  content: string // Markdown 문자열로 타입 변경
+}
+
+interface ItemProps {
+  className?: string
+  children: React.ReactNode
 }
 
 const Wrapper = styled.div`
@@ -29,10 +34,8 @@ const Items = styled.div`
   margin-top: 20px;
 `
 
-const Item = styled(({ className, children, to }: GatsbyLinkProps<unknown>) => (
-  <Link to={to} className={className}>
-    {children}
-  </Link>
+const Item = styled(({ className, children }: ItemProps) => (
+  <div className={className}>{children}</div>
 ))<{ $depth: number; $focused: boolean }>`
   padding-left: ${({ $depth }) => $depth * 10}px;
   font-size: 13px;
@@ -42,11 +45,8 @@ const Item = styled(({ className, children, to }: GatsbyLinkProps<unknown>) => (
   text-decoration: none;
   transition: 0.1s all;
 `
-
-export default function TableOfContents({
-  content: { raw },
-}: TableOfContentsProps) {
-  const { toc, activeId } = useTableOfContents(raw as string)
+export default function TableOfContents({ content }: TableOfContentsProps) {
+  const { toc, activeId } = useTableOfContents(content)
 
   if (toc.length > 0)
     return (
@@ -55,7 +55,7 @@ export default function TableOfContents({
         <Items>
           {toc.map(({ id, title, depth }) => (
             <Item
-              to={`#${id}`}
+              // to={`#${id}`}
               key={id}
               $depth={depth}
               $focused={id === activeId}

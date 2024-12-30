@@ -1,12 +1,13 @@
 import styled from 'styled-components'
-import useRenderRichText from '../../hooks/useRenderRichText'
-import { useEffect } from 'react'
-import Prism from 'prismjs'
-import 'prismjs/components/prism-typescript'
-import 'prismjs/components/prism-python'
+
 import TableOfContents from './TableOfContents'
+import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
+import rehypeSanitize from 'rehype-sanitize'
+import type { Components } from 'react-markdown'
+
 type PostBodyProps = {
-  content: Queries.ContentfulPostContent
+  content: string
 }
 
 const Wrapper = styled.div`
@@ -40,19 +41,87 @@ const Content = styled.div`
   }
 `
 
-export default function PostBody({ content }: PostBodyProps) {
-  const richText = useRenderRichText(content)
+const StyledMarkdown = styled(ReactMarkdown)`
+  // 전체 마크다운 컨테이너
+  width: 100%;
+  overflow-x: hidden; // 가로 스크롤 방지
 
-  useEffect(Prism.highlightAll, [])
+  // 코드 블록 스타일링
+  pre {
+    max-width: 100%;
+    overflow-x: auto; // 코드 블록만 가로 스크롤 허용
+    padding: 1rem;
+    margin: 1rem 0;
+    background: #f5f5f5;
+    border-radius: 4px;
+  }
+
+  // 인라인 코드 스타일링
+  code {
+    background: #f5f5f5;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+
+  // 이미지가 컨테이너를 벗어나지 않도록
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  // 표가 컨테이너를 벗어나지 않도록
+  table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+  }
+`
+
+export default function PostBody({ content }: PostBodyProps) {
+  const components: Components = {
+    h1: ({ children }) => {
+      if (!children) return null
+      const id =
+        children
+          .toString()
+          .toLowerCase()
+          .replaceAll(/[^a-z0-9]+/g, '-') + '_'
+      return <h1 id={id}>{children}</h1>
+    },
+    h2: ({ children }) => {
+      if (!children) return null
+      const id =
+        children
+          .toString()
+          .toLowerCase()
+          .replaceAll(/[^a-z0-9]+/g, '-') + '_'
+      return <h2 id={id}>{children}</h2>
+    },
+    h3: ({ children }) => {
+      if (!children) return null
+      const id =
+        children
+          .toString()
+          .toLowerCase()
+          .replaceAll(/[^a-z0-9]+/g, '-') + '_'
+      return <h3 id={id}>{children}</h3>
+    },
+  }
 
   return (
     <Wrapper>
       <Content>
-        <div id="content">{richText}</div>
-        {/* 댓글 컴포넌트가 들어갈 자리 */}
+        <div id="content">
+          <StyledMarkdown
+            rehypePlugins={[rehypeRaw, rehypeSanitize]}
+            components={components}
+          >
+            {content}
+          </StyledMarkdown>
+        </div>
       </Content>
       <TableOfContents content={content} />
-      {/* 플로팅 목차 컴포넌트가 들어갈 자리 */}
     </Wrapper>
   )
 }
