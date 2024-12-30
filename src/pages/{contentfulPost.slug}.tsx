@@ -3,6 +3,7 @@ import { IGatsbyImageData } from 'gatsby-plugin-image'
 import PostHead from '../components/post/PostHead'
 import PostBody from '../components/post/PostBody'
 import SEO from '../components/common/Seo'
+import PostProfile from '../components/post/PostProfile'
 
 export default function Post({
   data: { contentfulPost },
@@ -22,6 +23,7 @@ export default function Post({
       <PostBody
         content={contentfulPost?.content as Queries.ContentfulPostContent}
       />
+      <PostProfile />
     </>
   )
 }
@@ -63,6 +65,13 @@ export const query = graphql`
             gatsbyImageData(width: 774)
             __typename
           }
+        }
+      }
+      author {
+        name
+        role
+        avatar {
+          gatsbyImageData
         }
       }
     }
