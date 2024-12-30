@@ -1,7 +1,7 @@
 export default function PostProfile() {
   return (
     <div>
-      <p>Profile 영역a</p>
+      <p>Profile 영역</p>
     </div>
   )
 }
