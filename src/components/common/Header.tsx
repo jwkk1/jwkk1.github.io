@@ -12,37 +12,53 @@ const Wrapper = styled.div`
   background-color: #ffffff;
 `
 
+const LogoLink = styled(Link)`
+  .gatsby-image-wrapper {
+    width: 195px;
+
+    @media (max-width: 1024px) {
+      width: 160px;
+    }
+
+    @media (max-width: 768px) {
+      width: 130px;
+    }
+  }
+`
+
 const PageButton = styled(Link)`
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
   background-color: #000000;
+
+  .gatsby-image-wrapper {
+    @media (max-width: 768px) {
+      width: 14px !important;
+    }
+  }
 `
 
 const ButtonText = styled.p`
-  fontweight: 600;
+  font-weight: 600;
   font-size: 14px;
-  lineheight: 1.25;
+  line-height: 1.25;
   color: #ffffff;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `
 
 export default function Header() {
   return (
     <Wrapper>
-      <Link to="/">
-        <StaticImage
-          src="../../images/header-image.png"
-          alt="Logo Image"
-          width={195}
-        />
-      </Link>
+      <LogoLink to="/">
+        <StaticImage src="../../images/header-image.png" alt="Logo Image" />
+      </LogoLink>
       <PageButton to="http://workscombine.com/">
-        <StaticImage
-          src="../../images/small-logo.svg"
-          alt="Logo Image"
-          width={18}
-        />
+        <StaticImage src="../../images/small-logo.svg" alt="Logo Image" />
         <ButtonText>웍스컴바인 홈페이지</ButtonText>
       </PageButton>
     </Wrapper>

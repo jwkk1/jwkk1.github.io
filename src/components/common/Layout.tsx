@@ -44,11 +44,7 @@ const Wrapper = styled.div`
 `
 
 const Contents = styled.div`
-  margin: 80px 0;
   width: 100%;
-  @media (max-width: 1024px) {
-    margin: 50px 0;
-  }
 `
 
 export default function Layout({ children }: LayoutProps) {
