@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="ko"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 5.14.1"/><meta name="description" content="Flux패턴의 데이터 흐름과 Redux에 대해 알아보자" data-gatsby-head="true"/><meta name="viewport" content="width=device-width, initial-scale=1.0" data-gatsby-head="true"/><meta http-equiv="Content-Type" content="text/html;charset=UTF-8" data-gatsby-head="true"/><meta property="og:type" content="website" data-gatsby-head="true"/><meta property="og:title" content="Flux패턴의 데이터 흐름과 실무에서의 Redux 사용기" data-gatsby-head="true"/><meta property="og:description" content="Flux패턴의 데이터 흐름과 Redux에 대해 알아보자" data-gatsby-head="true"/><meta property="og:image" content="https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png" data-gatsby-head="true"/><meta property="og:url" content="https://jwkk1.github.io/flux-redux" data-gatsby-head="true"/><meta property="og:site_name" content="Flux패턴의 데이터 흐름과 실무에서의 Redux 사용기" data-gatsby-head="true"/><meta name="twitter:card" content="summary" data-gatsby-head="true"/><meta name="twitter:title" content="Flux패턴의 데이터 흐름과 실무에서의 Redux 사용기" data-gatsby-head="true"/><meta name="twitter:description" content="Flux패턴의 데이터 흐름과 Redux에 대해 알아보자" data-gatsby-head="true"/><meta name="twitter:image" content="https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png" data-gatsby-head="true"/><meta name="twitter:site" content="@사용자이름" data-gatsby-head="true"/><meta name="twitter:creator" content="@사용자이름" data-gatsby-head="true"/><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){const t=e.target;if(void 0===t.dataset.mainImage)return;if(void 0===t.dataset.gatsbyImageSsr)return;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><style data-styled="" data-styled-version="6.1.13">.hRPFUk{display:flex;max-width:1000px;width:100%;justify-content:space-between;align-items:center;padding:31px 0;background-color:#ffffff;}/*!sc*/
+data-styled.g1[id="Header__Wrapper-sc-188j21q-0"]{content:"hRPFUk,"}/*!sc*/
+.kCurVI .gatsby-image-wrapper{width:195px;}/*!sc*/
+@media (max-width:1024px){.kCurVI .gatsby-image-wrapper{width:160px;}}/*!sc*/
+@media (max-width:768px){.kCurVI .gatsby-image-wrapper{width:130px;}}/*!sc*/
+data-styled.g2[id="Header__LogoLink-sc-188j21q-1"]{content:"kCurVI,"}/*!sc*/
+.kPwRfB{display:flex;align-items:center;gap:10px;padding:10px 14px;background-color:#000000;}/*!sc*/
+.kPwRfB:hover,.kPwRfB:active,.kPwRfB:visited{text-decoration:none;}/*!sc*/
+@media (max-width:768px){.kPwRfB .gatsby-image-wrapper{width:14px!important;}}/*!sc*/
+data-styled.g3[id="Header__PageButton-sc-188j21q-2"]{content:"kPwRfB,"}/*!sc*/
+.huJIsP{font-weight:600;font-size:14px;line-height:1.25;color:#ffffff;}/*!sc*/
+@media (max-width:768px){.huJIsP{font-size:12px;}}/*!sc*/
+data-styled.g4[id="Header__ButtonText-sc-188j21q-3"]{content:"huJIsP,"}/*!sc*/
+.iNObqe{display:grid;place-items:center;margin-top:auto;padding:50px 0;font-size:15px;text-align:center;line-height:1.5;}/*!sc*/
+@media (max-width:768px){.iNObqe{font-size:12px;}}/*!sc*/
+data-styled.g5[id="Footer__Wrapper-sc-1d7z9fz-0"]{content:"iNObqe,"}/*!sc*/
+*{margin:0;padding:0;box-sizing:border-box;font-family:'SUIT';}/*!sc*/
+html,body,#___gatsby,#gatsby-focus-wrapper{min-height:100%;height:100%;}/*!sc*/
+data-styled.g6[id="sc-global-iaKsHl1"]{content:"sc-global-iaKsHl1,"}/*!sc*/
+.eOQcTW{display:flex;flex-direction:column;align-items:center;width:100%;min-height:100%;margin:0px auto;}/*!sc*/
+@media (max-width:1024px){.eOQcTW{width:100%;padding:0 40px;}}/*!sc*/
+@media (max-width:768px){.eOQcTW{width:100%;padding:0 20px;}}/*!sc*/
+data-styled.g7[id="Layout__Wrapper-sc-r7vufv-0"]{content:"eOQcTW,"}/*!sc*/
+.dsUdUb{width:100%;}/*!sc*/
+data-styled.g8[id="Layout__Contents-sc-r7vufv-1"]{content:"dsUdUb,"}/*!sc*/
+.iJEnDP{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:20px;aspect-ratio:16/9;padding:50px;border-radius:20px;}/*!sc*/
+@media (max-width:1024px){.iJEnDP{padding:30px;gap:15px;}}/*!sc*/
+@media (max-width:768px){.iJEnDP{padding:20px;gap:10px;border-radius:10px;}}/*!sc*/
+data-styled.g13[id="PostHead__Wrapper-sc-1xolw1k-0"]{content:"iJEnDP,"}/*!sc*/
+.kvJcjP{display:-webkit-box;max-height:2.4em;overflow:hidden;font-size:30px;font-weight:700;color:#ffffff;text-overflow:ellipsis;word-wrap:break-word;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.2em;}/*!sc*/
+@media (max-width:1024px){.kvJcjP{font-size:24px;}}/*!sc*/
+@media (max-width:768px){.kvJcjP{font-size:18px;}}/*!sc*/
+data-styled.g14[id="PostHead__Title-sc-1xolw1k-1"]{content:"kvJcjP,"}/*!sc*/
+.yXrOw{display:flex;justify-content:space-between;padding-bottom:15px;border-bottom:1px solid #ffffff;font-size:15px;font-weight:300;color:#ffffff;}/*!sc*/
+@media (max-width:1024px){.yXrOw{padding-bottom:10px;font-size:13px;}}/*!sc*/
+@media (max-width:768px){.yXrOw{padding-bottom:8px;font-size:11px;}}/*!sc*/
+data-styled.g15[id="PostHead__Information-sc-1xolw1k-2"]{content:"yXrOw,"}/*!sc*/
+.jCnplH{display:flex;gap:7px;}/*!sc*/
+data-styled.g16[id="PostHead__Category-sc-1xolw1k-3"]{content:"jCnplH,"}/*!sc*/
+.koQZeP{position:absolute;top:0;left:0;z-index:-1;width:100%;height:100%;}/*!sc*/
+.koQZeP:after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient( 180deg,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.9) 130% );}/*!sc*/
+data-styled.g17[id="PostHead__Thumbnail-sc-1xolw1k-4"]{content:"koQZeP,"}/*!sc*/
+.kFTSRZ{position:sticky;top:100px;width:100%;}/*!sc*/
+@media (max-width:768px){.kFTSRZ{display:none;}}/*!sc*/
+data-styled.g18[id="TableOfContents__Wrapper-sc-s8wwo9-0"]{content:"kFTSRZ,"}/*!sc*/
+.iFHHSZ{padding-bottom:20px;border-bottom:1px solid #000000;font-size:15px;font-weight:600;}/*!sc*/
+data-styled.g19[id="TableOfContents__Title-sc-s8wwo9-1"]{content:"iFHHSZ,"}/*!sc*/
+.laNWUk{display:grid;grid-gap:10px;margin-top:20px;}/*!sc*/
+data-styled.g20[id="TableOfContents__Items-sc-s8wwo9-2"]{content:"laNWUk,"}/*!sc*/
+.hitICe{padding-left:0px;font-size:13px;font-weight:300;color:rgba(30,31,33,0.5);cursor:pointer;text-decoration:none;transition:0.1s all;}/*!sc*/
+.jgbkfb{padding-left:10px;font-size:13px;font-weight:300;color:rgba(30,31,33,0.5);cursor:pointer;text-decoration:none;transition:0.1s all;}/*!sc*/
+data-styled.g21[id="TableOfContents__Item-sc-s8wwo9-3"]{content:"hitICe,jgbkfb,"}/*!sc*/
+.eixAuV{position:relative;display:grid;grid-template-columns:1fr 220px;grid-gap:30px;justify-content:space-between;align-items:flex-start;padding-top:100px;}/*!sc*/
+@media (max-width:768px){.eixAuV{grid-template-columns:1fr;padding-top:60px;}}/*!sc*/
+data-styled.g22[id="PostBody__Wrapper-sc-18elwcv-0"]{content:"eixAuV,"}/*!sc*/
+.jjteCC{overflow:auto;display:flex;flex-direction:column;gap:100px;font-size:16px;line-height:2;word-break:break-word;}/*!sc*/
+@media (max-width:768px){.jjteCC{gap:50px;font-size:14px;line-height:1.8;}}/*!sc*/
+data-styled.g23[id="PostBody__Content-sc-18elwcv-1"]{content:"jjteCC,"}/*!sc*/
+.hGZKUe{width:100%;overflow-x:hidden;}/*!sc*/
+.hGZKUe pre{max-width:100%;overflow-x:auto;padding:1rem;margin:1rem 0;background:#f5f5f5;border-radius:4px;}/*!sc*/
+.hGZKUe code{background:#f5f5f5;padding:0.2rem 0.4rem;border-radius:3px;font-size:0.9em;}/*!sc*/
+.hGZKUe img{max-width:100%;height:auto;}/*!sc*/
+.hGZKUe table{width:100%;overflow-x:auto;display:block;}/*!sc*/
+data-styled.g24[id="PostBody__StyledMarkdown-sc-18elwcv-2"]{content:"hGZKUe,"}/*!sc*/
+.cJIwxb{padding:20px 0;}/*!sc*/
+data-styled.g25[id="PostProfile__Wrapper-sc-ab9be7-0"]{content:"cJIwxb,"}/*!sc*/
+.yvWmw{display:flex;padding:60px 0;gap:20px;}/*!sc*/
+data-styled.g26[id="PostProfile__ProfileContainer-sc-ab9be7-1"]{content:"yvWmw,"}/*!sc*/
+.NqwaX{overflow:hidden;width:80px;height:80px;border-radius:50%;}/*!sc*/
+data-styled.g27[id="PostProfile__Avatar-sc-ab9be7-2"]{content:"NqwaX,"}/*!sc*/
+.fSFtHE{width:100%;height:100%;}/*!sc*/
+data-styled.g28[id="PostProfile__Thumbnail-sc-ab9be7-3"]{content:"fSFtHE,"}/*!sc*/
+.iymHky{display:flex;gap:10px;flex-direction:column;}/*!sc*/
+data-styled.g29[id="PostProfile__ProfileDetail-sc-ab9be7-4"]{content:"iymHky,"}/*!sc*/
+.qeovi{font-size:22px;font-weight:700;}/*!sc*/
+data-styled.g30[id="PostProfile__Name-sc-ab9be7-5"]{content:"qeovi,"}/*!sc*/
+.gVnPdx{font-size:16px;color:#666;font-weight:400;}/*!sc*/
+data-styled.g31[id="PostProfile__Description-sc-ab9be7-6"]{content:"gVnPdx,"}/*!sc*/
+.fTbsWs{display:flex;gap:10px;flex-wrap:wrap;padding:60px 30px;border-top:1px solid #ddd;}/*!sc*/
+data-styled.g32[id="PostProfile__TagContainer-sc-ab9be7-7"]{content:"fTbsWs,"}/*!sc*/
+.fkgWMT{padding:5px 10px;background-color:#f0f0f0;border-radius:5px;}/*!sc*/
+data-styled.g33[id="PostProfile__Tag-sc-ab9be7-8"]{content:"fkgWMT,"}/*!sc*/
+</style><link rel="sitemap" type="application/xml" href="/sitemap-index.xml"/><link rel="canonical" href="https://jwkk1.github.io/flux-redux/" data-baseprotocol="https:" data-basehost="jwkk1.github.io"/><link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet"/><title data-gatsby-head="true">Flux패턴의 데이터 흐름과 실무에서의 Redux 사용기</title></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div class="Layout__Wrapper-sc-r7vufv-0 eOQcTW"><div class="Header__Wrapper-sc-188j21q-0 hRPFUk"><a class="Header__LogoLink-sc-188j21q-1 kCurVI" href="/"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained"><div style="max-width:2360px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;268&#x27;%20width=&#x27;2360&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#080808;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="/static/430f819ff49b730887ef50421360e3a9/00c9d/header-image.webp 590w,/static/430f819ff49b730887ef50421360e3a9/c6c47/header-image.webp 1180w,/static/430f819ff49b730887ef50421360e3a9/ea5d7/header-image.webp 2360w" sizes="(min-width: 2360px) 2360px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 2360px) 2360px, 100vw" decoding="async" loading="lazy" data-src="/static/430f819ff49b730887ef50421360e3a9/d1ccd/header-image.png" data-srcset="/static/430f819ff49b730887ef50421360e3a9/35d2f/header-image.png 590w,/static/430f819ff49b730887ef50421360e3a9/4b6f3/header-image.png 1180w,/static/430f819ff49b730887ef50421360e3a9/d1ccd/header-image.png 2360w" alt="Logo Image"/></picture><noscript><picture><source type="image/webp" srcSet="/static/430f819ff49b730887ef50421360e3a9/00c9d/header-image.webp 590w,/static/430f819ff49b730887ef50421360e3a9/c6c47/header-image.webp 1180w,/static/430f819ff49b730887ef50421360e3a9/ea5d7/header-image.webp 2360w" sizes="(min-width: 2360px) 2360px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 2360px) 2360px, 100vw" decoding="async" loading="lazy" src="/static/430f819ff49b730887ef50421360e3a9/d1ccd/header-image.png" srcSet="/static/430f819ff49b730887ef50421360e3a9/35d2f/header-image.png 590w,/static/430f819ff49b730887ef50421360e3a9/4b6f3/header-image.png 1180w,/static/430f819ff49b730887ef50421360e3a9/d1ccd/header-image.png 2360w" alt="Logo Image"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></a><a href="http://workscombine.com/" target="_blank" class="Header__PageButton-sc-188j21q-2 kPwRfB"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained"><div style="max-width:18px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;13&#x27;%20width=&#x27;18&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#1848c8;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="/static/ee6d77b4e572e4db311b7adb9cf9d329/49f8b/small-logo.webp 5w,/static/ee6d77b4e572e4db311b7adb9cf9d329/0bf20/small-logo.webp 9w,/static/ee6d77b4e572e4db311b7adb9cf9d329/88a46/small-logo.webp 18w" sizes="(min-width: 18px) 18px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 18px) 18px, 100vw" decoding="async" loading="lazy" data-src="/static/ee6d77b4e572e4db311b7adb9cf9d329/af83c/small-logo.svg" data-srcset="/static/ee6d77b4e572e4db311b7adb9cf9d329/0fcd4/small-logo.svg 5w,/static/ee6d77b4e572e4db311b7adb9cf9d329/23cc4/small-logo.svg 9w,/static/ee6d77b4e572e4db311b7adb9cf9d329/af83c/small-logo.svg 18w" alt="Logo Image"/></picture><noscript><picture><source type="image/webp" srcSet="/static/ee6d77b4e572e4db311b7adb9cf9d329/49f8b/small-logo.webp 5w,/static/ee6d77b4e572e4db311b7adb9cf9d329/0bf20/small-logo.webp 9w,/static/ee6d77b4e572e4db311b7adb9cf9d329/88a46/small-logo.webp 18w" sizes="(min-width: 18px) 18px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 18px) 18px, 100vw" decoding="async" loading="lazy" src="/static/ee6d77b4e572e4db311b7adb9cf9d329/af83c/small-logo.svg" srcSet="/static/ee6d77b4e572e4db311b7adb9cf9d329/0fcd4/small-logo.svg 5w,/static/ee6d77b4e572e4db311b7adb9cf9d329/23cc4/small-logo.svg 9w,/static/ee6d77b4e572e4db311b7adb9cf9d329/af83c/small-logo.svg 18w" alt="Logo Image"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div><p class="Header__ButtonText-sc-188j21q-3 huJIsP">웍스컴바인 홈페이지</p></a></div><div class="Layout__Contents-sc-r7vufv-1 dsUdUb"><div class="PostHead__Wrapper-sc-1xolw1k-0 iJEnDP"><div class="PostHead__Title-sc-1xolw1k-1 kvJcjP">Flux패턴의 데이터 흐름과 실무에서의 Redux 사용기</div><div class="PostHead__Information-sc-1xolw1k-2 yXrOw"><div class="PostHead__Category-sc-1xolw1k-3 jCnplH"><div>#<!-- -->개발</div><div>#<!-- -->프론트엔드</div></div><div style="display:flex;gap:10px"><div>10 min read</div>2024-12-27</div></div><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained PostHead__Thumbnail-sc-1xolw1k-4 koQZeP"><div style="max-width:1000px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;555&#x27;%20width=&#x27;1000&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#f8f8f8;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=75&amp;h=42&amp;q=50&amp;fm=webp 75w,https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=151&amp;h=84&amp;q=50&amp;fm=webp 151w,https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=301&amp;h=167&amp;q=50&amp;fm=webp 301w" sizes="(min-width: 301px) 301px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 301px) 301px, 100vw" decoding="async" loading="lazy" data-src="https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=301&amp;h=167&amp;q=50&amp;fm=png" data-srcset="https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=75&amp;h=42&amp;q=50&amp;fm=png 75w,https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=151&amp;h=84&amp;q=50&amp;fm=png 151w,https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=301&amp;h=167&amp;q=50&amp;fm=png 301w" alt="Flux패턴의 데이터 흐름과 실무에서의 Redux 사용기"/></picture><noscript><picture><source type="image/webp" srcSet="https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=75&amp;h=42&amp;q=50&amp;fm=webp 75w,https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=151&amp;h=84&amp;q=50&amp;fm=webp 151w,https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=301&amp;h=167&amp;q=50&amp;fm=webp 301w" sizes="(min-width: 301px) 301px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 301px) 301px, 100vw" decoding="async" loading="lazy" src="https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=301&amp;h=167&amp;q=50&amp;fm=png" srcSet="https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=75&amp;h=42&amp;q=50&amp;fm=png 75w,https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=151&amp;h=84&amp;q=50&amp;fm=png 151w,https://images.ctfassets.net/d54vriomoavp/1QSRTyM7v8mIUBC1fvaJqI/1bc0b26faac388367c92d2f5f295fb83/___________5_.png?w=301&amp;h=167&amp;q=50&amp;fm=png 301w" alt="Flux패턴의 데이터 흐름과 실무에서의 Redux 사용기"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></div><div class="PostBody__Wrapper-sc-18elwcv-0 eixAuV"><div class="PostBody__Content-sc-18elwcv-1 jjteCC"><div id="content"><div class="PostBody__StyledMarkdown-sc-18elwcv-2 hGZKUe"><h1 id="-_">파이썬으로 네이버 영화 평점 데이터 분석하기</h1>
+<p>네이버 영화의 평점 데이터를 수집하고 분석하는 과정을 진행해보겠습니다. 웹 스크래핑부터 데이터 시각화까지 단계별로 알아보겠습니다.</p>
+<h2 id="1-_">1. 필요한 라이브러리 설치 및 임포트</h2>
+<pre><code class="language-python">!pip install requests beautifulsoup4 pandas matplotlib seaborn wordcloud
+
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime
+from wordcloud import WordCloud
+
+# 한글 폰트 설정
+plt.rcParams[&#x27;font.family&#x27;] = &#x27;NanumGothic&#x27;
+</code></pre>
+<h2 id="2-_">2. 데이터 수집 함수 구현</h2>
+<pre><code class="language-python">def get_movie_reviews(movie_code, pages=10):
+    reviews = []
+
+    for page in range(1, pages + 1):
+        url = f&quot;https://movie.naver.com/movie/point/af/list.naver?st=mcode&amp;target=after&amp;sword={movie_code}&amp;page={page}&quot;
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, &#x27;html.parser&#x27;)
+
+        items = soup.select(&#x27;table.list_netizen &gt; tbody &gt; tr&#x27;)
+
+        for item in items:
+            try:
+                score = item.select_one(&#x27;td.title em&#x27;).text
+                review = item.select_one(&#x27;td.title a&#x27;)[&#x27;title&#x27;]
+                date = item.select_one(&#x27;td.num&#x27;).text.strip()
+
+                reviews.append({
+                    &#x27;score&#x27;: int(score),
+                    &#x27;review&#x27;: review,
+                    &#x27;date&#x27;: date
+                })
+            except:
+                continue
+
+        print(f&quot;페이지 {page} 수집 완료&quot;)
+
+    return pd.DataFrame(reviews)
+
+# 데이터 수집 실행
+movie_code = &quot;161967&quot;  # 기생충 영화 코드
+df = get_movie_reviews(movie_code)
+</code></pre>
+<h2 id="3-_">3. 데이터 기본 분석</h2>
+<pre><code class="language-python"># 기본 통계
+print(&quot;\n=== 기본 통계 ===&quot;)
+print(&quot;전체 리뷰 수:&quot;, len(df))
+print(&quot;평점 평균:&quot;, round(df[&#x27;score&#x27;].mean(), 2))
+print(&quot;평점 중앙값:&quot;, df[&#x27;score&#x27;].median())
+print(&quot;평점 표준편차:&quot;, round(df[&#x27;score&#x27;].std(), 2))
+
+# 평점 분포
+print(&quot;\n=== 평점 분포 ===&quot;)
+score_dist = df[&#x27;score&#x27;].value_counts().sort_index()
+print(score_dist)
+
+# 날짜별 리뷰 수
+df[&#x27;date&#x27;] = pd.to_datetime(df[&#x27;date&#x27;])
+daily_reviews = df.groupby(df[&#x27;date&#x27;].dt.date).size()
+</code></pre>
+<h2 id="4-_">4. 데이터 시각화</h2>
+<pre><code class="language-python"># 1. 평점 분포 히스토그램
+plt.figure(figsize=(12, 6))
+sns.histplot(data=df, x=&#x27;score&#x27;, bins=10)
+plt.title(&#x27;영화 평점 분포&#x27;)
+plt.xlabel(&#x27;평점&#x27;)
+plt.ylabel(&#x27;리뷰 수&#x27;)
+plt.show()
+
+# 2. 날짜별 리뷰 수 추이
+plt.figure(figsize=(12, 6))
+daily_reviews.plot(kind=&#x27;line&#x27;)
+plt.title(&#x27;날짜별 리뷰 수 추이&#x27;)
+plt.xlabel(&#x27;날짜&#x27;)
+plt.ylabel(&#x27;리뷰 수&#x27;)
+plt.xticks(rotation=45)
+plt.grid(True)
+plt.show()
+
+# 3. 평점별 리뷰 비율 파이차트
+plt.figure(figsize=(8, 8))
+plt.pie(score_dist, labels=score_dist.index, autopct=&#x27;%1.1f%%&#x27;)
+plt.title(&#x27;평점별 리뷰 비율&#x27;)
+plt.show()
+</code></pre>
+<h2 id="5-_">5. 워드클라우드 생성</h2>
+<h2 id="6-_">6. 간단한 감성 분석</h2>
+<pre><code class="language-python"># 긍정/부정 리뷰 분류 (간단한 버전)
+def classify_sentiment(score):
+    if score &gt;= 8:
+        return &#x27;긍정&#x27;
+    elif score &lt;= 4:
+        return &#x27;부정&#x27;
+    else:
+        return &#x27;중립&#x27;
+
+df[&#x27;sentiment&#x27;] = df[&#x27;score&#x27;].apply(classify_sentiment)
+
+# 감성 분포 시각화
+plt.figure(figsize=(8, 6))
+sns.countplot(data=df, x=&#x27;sentiment&#x27;)
+plt.title(&#x27;리뷰 감성 분포&#x27;)
+plt.show()
+
+# 감성별 대표 리뷰 출력
+print(&quot;\n=== 감성별 대표 리뷰 ===&quot;)
+for sentiment in [&#x27;긍정&#x27;, &#x27;중립&#x27;, &#x27;부정&#x27;]:
+    print(f&quot;\n{sentiment} 리뷰 예시:&quot;)
+    sample_reviews = df[df[&#x27;sentiment&#x27;] == sentiment][&#x27;review&#x27;].sample(n=3)
+    for idx, review in enumerate(sample_reviews, 1):
+        print(f&quot;{idx}. {review}&quot;)
+</code></pre>
+<h2 id="-_">결과 해석</h2>
+<p>위 코드를 실행하면 다음과 같은 분석 결과를 얻을 수 있습니다:</p>
+<ol>
+<li>평점의 전반적인 분포와 통계값</li>
+<li>시간에 따른 리뷰 작성 추이</li>
+<li>평점별 비율</li>
+<li>자주 등장하는 키워드 (워드클라우드)</li>
+<li>간단한 감성 분석 결과</li>
+</ol>
+<p>이 코드는 네이버 영화의 어떤 영화에 대해서도 적용할 수 있으며, movie_code만 변경하면 됩니다. 영화 코드는 네이버 영화 URL에서 확인할 수 있습니다.</p>
+<p>주의사항:</p>
+<ul>
+<li>네이버 서버에 과도한 부하를 주지 않도록 적절한 간격을 두고 데이터를 수집해야 합니다.</li>
+<li>한글 폰트 설정이 필요하므로 &#x27;NanumGothic&#x27; 폰트가 설치되어 있어야 합니다.</li>
+<li>워드클라우드 생성 시 한글 형태소 분석을 추가하면 더 좋은 결과를 얻을 수 있습니다.</li>
+</ul>
+<p>이 코드를 기반으로 더 다양한 분석을 추가할 수 있습니다. 예를 들어:</p>
+<ul>
+<li>리뷰 텍스트의 자세한 감성 분석</li>
+<li>시간대별 평점 변화 추이</li>
+<li>리뷰 길이와 평점의 상관관계 분석</li>
+<li>특정 키워드를 포함한 리뷰의 평점 분석 등</li>
+</ul>
+<p>필요에 따라 코드를 수정하고 확장하여 사용하시면 됩니다.</p></div></div></div><div class="TableOfContents__Wrapper-sc-s8wwo9-0 kFTSRZ"><div class="TableOfContents__Title-sc-s8wwo9-1 iFHHSZ">Table of Contents</div><div class="TableOfContents__Items-sc-s8wwo9-2 laNWUk"><div class="TableOfContents__Item-sc-s8wwo9-3 hitICe">파이썬으로 네이버 영화 평점 데이터 분석하기</div><div class="TableOfContents__Item-sc-s8wwo9-3 jgbkfb">1. 필요한 라이브러리 설치 및 임포트</div><div class="TableOfContents__Item-sc-s8wwo9-3 jgbkfb">2. 데이터 수집 함수 구현</div><div class="TableOfContents__Item-sc-s8wwo9-3 jgbkfb">3. 데이터 기본 분석</div><div class="TableOfContents__Item-sc-s8wwo9-3 jgbkfb">4. 데이터 시각화</div><div class="TableOfContents__Item-sc-s8wwo9-3 jgbkfb">5. 워드클라우드 생성</div><div class="TableOfContents__Item-sc-s8wwo9-3 jgbkfb">6. 간단한 감성 분석</div><div class="TableOfContents__Item-sc-s8wwo9-3 jgbkfb">결과 해석</div></div></div></div><div class="PostProfile__Wrapper-sc-ab9be7-0 cJIwxb"><div class="PostProfile__ProfileContainer-sc-ab9be7-1 yvWmw"><div class="PostProfile__Avatar-sc-ab9be7-2 NqwaX"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained PostProfile__Thumbnail-sc-ab9be7-3 fSFtHE"><div style="max-width:3000px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;2000&#x27;%20width=&#x27;3000&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#f8f8f8;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=750&amp;h=500&amp;q=50&amp;fm=webp 750w,https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=1500&amp;h=1000&amp;q=50&amp;fm=webp 1500w,https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=3000&amp;h=2000&amp;q=50&amp;fm=webp 3000w" sizes="(min-width: 3000px) 3000px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 3000px) 3000px, 100vw" decoding="async" loading="lazy" data-src="https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=3000&amp;h=2000&amp;fl=progressive&amp;q=50&amp;fm=jpg" data-srcset="https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=750&amp;h=500&amp;fl=progressive&amp;q=50&amp;fm=jpg 750w,https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=1500&amp;h=1000&amp;fl=progressive&amp;q=50&amp;fm=jpg 1500w,https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=3000&amp;h=2000&amp;fl=progressive&amp;q=50&amp;fm=jpg 3000w" alt="Avatar"/></picture><noscript><picture><source type="image/webp" srcSet="https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=750&amp;h=500&amp;q=50&amp;fm=webp 750w,https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=1500&amp;h=1000&amp;q=50&amp;fm=webp 1500w,https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=3000&amp;h=2000&amp;q=50&amp;fm=webp 3000w" sizes="(min-width: 3000px) 3000px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 3000px) 3000px, 100vw" decoding="async" loading="lazy" src="https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=3000&amp;h=2000&amp;fl=progressive&amp;q=50&amp;fm=jpg" srcSet="https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=750&amp;h=500&amp;fl=progressive&amp;q=50&amp;fm=jpg 750w,https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=1500&amp;h=1000&amp;fl=progressive&amp;q=50&amp;fm=jpg 1500w,https://images.ctfassets.net/d54vriomoavp/6uNCfAuFd7pYfoUSKnp3Mt/b496f808a29ea689405453f8c24caf23/orida_Box_Turtle_Digon3.jpg?w=3000&amp;h=2000&amp;fl=progressive&amp;q=50&amp;fm=jpg 3000w" alt="Avatar"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></div><div class="PostProfile__ProfileDetail-sc-ab9be7-4 iymHky"><div><p class="PostProfile__Name-sc-ab9be7-5 qeovi">김예현</p><p>데이터랩</p></div><div><p class="PostProfile__Description-sc-ab9be7-6 gVnPdx">안녕하삼</p></div></div></div><div class="PostProfile__TagContainer-sc-ab9be7-7 fTbsWs"><div class="PostProfile__Tag-sc-ab9be7-8 fkgWMT">#<!-- -->개발</div><div class="PostProfile__Tag-sc-ab9be7-8 fkgWMT">#<!-- -->프론트엔드</div></div></div></div><footer class="Footer__Wrapper-sc-1d7z9fz-0 iNObqe"><div>works tech blog</div><div>@2025 WorksCombine</div></footer></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/flux-redux/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
+          <script
+            id="gatsby-chunk-mapping"
+          >
+            window.___chunkMapping="{\"app\":[\"/app-a4f64965b008a1a31467.js\"],\"component---src-pages-404-tsx\":[\"/component---src-pages-404-tsx-6c8cc1d544bc04bb8dbc.js\"],\"component---src-pages-contentful-post-slug-tsx\":[\"/component---src-pages-contentful-post-slug-tsx-c646f71f0039b8871726.js\"],\"component---src-pages-index-tsx\":[\"/component---src-pages-index-tsx-b7c88bc5463d263f700c.js\"]}";
+          </script>
+        <script>window.___webpackCompilationHash="6c3013c8df51cd5bc1fa";</script><script src="/webpack-runtime-087ffc08debfbc54d19f.js" async></script><script src="/framework-b94ef92fb1b814cefade.js" async></script><script src="/app-a4f64965b008a1a31467.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
