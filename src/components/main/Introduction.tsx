@@ -57,10 +57,14 @@ export default function Introduction() {
     <Container>
       <Background>
         <StaticImage
+          quality={100}
           src="../../images/intro-background.jpg"
           alt="background Image"
+          width={7680}
+          height={1320}
           layout="fullWidth"
           objectFit="cover"
+          formats={['jpg']}
         />
       </Background>
       {/* <Content>
