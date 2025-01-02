@@ -27,7 +27,8 @@ const GlobalStyle = createGlobalStyle`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1000px;
+  align-items: center;
+  width: 100%;
   min-height: 100%;
   margin: 0px auto;
 
@@ -44,7 +45,7 @@ const Wrapper = styled.div`
 
 const Contents = styled.div`
   margin: 80px 0;
-
+  width: 100%;
   @media (max-width: 1024px) {
     margin: 50px 0;
   }
