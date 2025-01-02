@@ -1,10 +1,10 @@
 import { Link } from 'gatsby'
 import styled from 'styled-components'
-import {
-  AiFillGithub,
-  AiOutlineInstagram,
-  AiFillLinkedin,
-} from 'react-icons/ai'
+// import {
+//   AiFillGithub,
+//   AiOutlineInstagram,
+//   AiFillLinkedin,
+// } from 'react-icons/ai'
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,20 +20,20 @@ const Title = styled(Link)`
   color: inherit;
 `
 
-const Menu = styled.div`
-  display: flex;
-  gap: 15px;
-  font-size: 25px;
+// const Menu = styled.div`
+//   display: flex;
+//   gap: 15px;
+//   font-size: 25px;
 
-  & > a {
-    display: flex;
-    color: initial;
-  }
+//   & > a {
+//     display: flex;
+//     color: initial;
+//   }
 
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
-`
+//   @media (max-width: 768px) {
+//     font-size: 20px;
+//   }
+// `
 
 export default function Header() {
   return (

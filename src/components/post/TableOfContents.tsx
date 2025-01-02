@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { GatsbyLinkProps, Link } from 'gatsby'
 import useTableOfContents from '../../hooks/useTableOfContents'
 
 type TableOfContentsProps = {
