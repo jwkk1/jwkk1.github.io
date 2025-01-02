@@ -51,6 +51,7 @@ const Description = styled.p`
 const TagContainer = styled.div`
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
   padding: 60px 30px;
   border-top: 1px solid #ddd;
 `
