@@ -3,11 +3,9 @@ import Layout from './src/components/common/Layout'
 
 const HeadComponents = [
   <link
+    href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css"
     rel="stylesheet"
-    as="style"
-    crossOrigin="anonymous"
-    href="<https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css>"
-    key="pretendard-font"
+    key="SUIT-font"
   />,
 ]
 
