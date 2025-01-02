@@ -33,6 +33,12 @@ const PageButton = styled(Link)`
   padding: 10px 14px;
   background-color: #000000;
 
+  &:hover,
+  &:active,
+  &:visited {
+    text-decoration: none;
+  }
+
   .gatsby-image-wrapper {
     @media (max-width: 768px) {
       width: 14px !important;
@@ -57,7 +63,7 @@ export default function Header() {
       <LogoLink to="/">
         <StaticImage src="../../images/header-image.png" alt="Logo Image" />
       </LogoLink>
-      <PageButton to="http://workscombine.com/">
+      <PageButton to="http://workscombine.com/" target="_blank">
         <StaticImage src="../../images/small-logo.svg" alt="Logo Image" />
         <ButtonText>웍스컴바인 홈페이지</ButtonText>
       </PageButton>
