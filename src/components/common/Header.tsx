@@ -1,56 +1,50 @@
 import { Link } from 'gatsby'
+import { StaticImage } from 'gatsby-plugin-image'
 import styled from 'styled-components'
-// import {
-//   AiFillGithub,
-//   AiOutlineInstagram,
-//   AiFillLinkedin,
-// } from 'react-icons/ai'
 
 const Wrapper = styled.div`
   display: flex;
+  max-width: 1000px;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  padding: 31px 0;
+  background-color: #ffffff;
 `
 
-const Title = styled(Link)`
-  font-size: 15px;
-  font-weight: 700;
-  text-decoration: none;
-  color: inherit;
+const PageButton = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background-color: #000000;
 `
 
-// const Menu = styled.div`
-//   display: flex;
-//   gap: 15px;
-//   font-size: 25px;
-
-//   & > a {
-//     display: flex;
-//     color: initial;
-//   }
-
-//   @media (max-width: 768px) {
-//     font-size: 20px;
-//   }
-// `
+const ButtonText = styled.p`
+  fontweight: 600;
+  font-size: 14px;
+  lineheight: 1.25;
+  color: #ffffff;
+`
 
 export default function Header() {
   return (
     <Wrapper>
-      <Title to="/">WorksCombine Tech Blog</Title>
-
-      {/* <Menu>
-        <a href="#" target="_blank">
-          <AiFillGithub />
-        </a>
-        <a href="#" target="_blank">
-          <AiOutlineInstagram />
-        </a>
-        <a href="#" target="_blank">
-          <AiFillLinkedin />
-        </a>
-      </Menu> */}
+      <Link to="/">
+        <StaticImage
+          src="../../images/header-image.png"
+          alt="Logo Image"
+          width={195}
+        />
+      </Link>
+      <PageButton to="http://workscombine.com/">
+        <StaticImage
+          src="../../images/small-logo.svg"
+          alt="Logo Image"
+          width={18}
+        />
+        <ButtonText>웍스컴바인 홈페이지</ButtonText>
+      </PageButton>
     </Wrapper>
   )
 }

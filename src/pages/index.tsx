@@ -4,6 +4,12 @@ import { useState } from 'react'
 import PostList from '../components/main/PostList'
 import Introduction from '../components/main/Introduction'
 import SEO from '../components/common/Seo'
+import styled from 'styled-components'
+
+const Wrapper = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
+`
 
 export const Head: HeadFC = () => <SEO />
 
@@ -39,12 +45,14 @@ export default function Index({
   return (
     <>
       <Introduction />
-      <Category
-        categories={categories}
-        selectedCategory={selectedCategory}
-        handleSelect={handleSelect}
-      />
-      <PostList posts={posts} />
+      <Wrapper>
+        <Category
+          categories={categories}
+          selectedCategory={selectedCategory}
+          handleSelect={handleSelect}
+        />
+        <PostList posts={posts} />
+      </Wrapper>
     </>
   )
 }
