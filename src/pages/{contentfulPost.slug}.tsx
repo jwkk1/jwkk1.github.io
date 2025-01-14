@@ -8,7 +8,6 @@ import PostProfile from '../components/post/PostProfile'
 export default function Post({
   data: { contentfulPost },
 }: PageProps<Queries.PostPageQuery>) {
-  console.log(contentfulPost)
   return (
     <>
       <PostHead
